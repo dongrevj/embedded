@@ -1,0 +1,36 @@
+#include <LiquidCrystal.h>
+
+// initialize the library with the numbers of the interface pins
+LiquidCrystal lcd(13, 12, 11, 10, 9, 8);
+void setup() {
+  lcd.begin(16, 2);
+  // Print a message to the LCD.
+  lcd.print("Data received is: ");
+  // initialize serial:
+  Serial.begin(9600);
+  // make the pins outputs:
+  pinMode(13, OUTPUT);
+  digitalWrite(13, LOW);
+
+}
+
+void loop() {
+  // if there's any serial available, read it:
+  while (Serial.available() > 0) {
+
+    char letter = Serial.read();
+    if (letter > '0')
+    { digitalWrite(13, HIGH);
+    lcd.setCursor(10, 1);
+      lcd.print((letter));
+      Serial.println("data is High");
+    }
+      else if (letter == '0')
+      { digitalWrite(13, LOW);
+         lcd.setCursor(10, 1);
+      lcd.print((letter));
+        Serial.println("data is Low");
+      }
+    }
+
+  }
